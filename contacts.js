@@ -41,6 +41,9 @@ class Contacts {
     const sql = 'SELECT users.user, contacts.* FROM contacts, users\
                   WHERE contacts.userid = users.id;'
     const contacts = await this.db.all(sql)
+    for(const index in contacts) {
+      if(contacts[index].photo === null) contacts[index].photo = 'avatar.png'
+    }
     return contacts
   }
 }
