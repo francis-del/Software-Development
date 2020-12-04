@@ -1,0 +1,63 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Contacts</title>
+		<meta name="description" content="form to add new books">
+		<meta name="author" content="Mark Tyers">
+		<link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="main.js"></script>
+	</head>
+	<body>
+		<header>
+		<h1>Pledge App</h1>
+		<a href="/logout">Log out</a>
+		</header>
+		{{#if msg}}
+ 			<aside>
+				<p class="msg">{{msg}}</p>
+			</aside>
+		{{/if}}
+		<main>
+      <form method="post" action="/pledge/add" enctype='multipart/form-data'>
+        <p>
+        <label for="firstname">First name</label><br />
+          <input type="text" name="firstname" placeholder="donor firstname" value="" autofocus required />
+        </p>
+        <p>
+          <label for="lastname">Last name</label><br />
+          <input type="text" name="lastname" placeholder="donor lastname" value="" autofocus required />
+        </p>
+        <p>
+        <label for="cause">Coronavirus</label><br />
+          <textarea type="text" name="cause" placeholder="cause details"></textarea>
+        </p>
+        <p>
+        <label for="description">Cause Description</label><br />
+          <textarea type="text" placeholder="description"></textarea>
+        </p>
+        <p>
+        <label for="reason">Cause Reason</label><br />
+          <textarea type="reason" placeholder="reason for the cause"></textarea>
+        </p>
+        <p>
+        <label for="support">Support from People</label><br />
+          <textarea type="support" placeholder="why people should support"></textarea>
+        </p>
+        <p>
+        <label for="fund">Fund Amount</label><br />
+          <input type="fund" placeholder="fund amount needed" value="" />
+        </p>
+        <p>
+        <label for="image">Profile Picture</label><br />
+          <input type="file" name="image" accept="image/*" requiured />
+        </p>
+        <p>
+        <label for="deadline">Deadline:</label>
+        <input type="date" id="date" name="deadline">
+      </form>
+		</main>
+	</body>
+</html>
