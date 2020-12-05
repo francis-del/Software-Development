@@ -1,4 +1,5 @@
 
+
 import Router from 'koa-router'
 
 const router = new Router({ prefix: '/pledge' })
@@ -16,12 +17,24 @@ async function checkAuth(ctx, next) {
 router.use(checkAuth)
 
 router.get('/', async ctx => {
+ const contacts = await new Contacts(dbName)
 	try {
+  const records = await contacts.all()
+  console.log(records)
+  ctx.hbs.records = records
 		await ctx.render('pledge', ctx.hbs)
 	} catch(err) {
 		ctx.hbs.error = err.message
 		await ctx.render('error', ctx.hbs)
 	}
+})
+
+router.get('/add', async ctx => {
+ await ctx.render('add', ctx.hbs)
+})
+router.post('/add', async ctx => {
+  console.log('adding a user')
+  return ctx.redirect('/pledge?msg=new user added')
 })
 
 export default router
