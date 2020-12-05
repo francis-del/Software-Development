@@ -5,7 +5,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Home Page</title>
+		<title>Contacts</title>
 		<meta name="description" content="form to add new books">
 		<meta name="author" content="Mark Tyers">
 		<link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
@@ -13,7 +13,7 @@
 	</head>
 	<body>
 		<header>
-		<h1>Secure Page</h1>
+		<h1>Pledge</h1>
 		<a href="/logout">Log out</a>
 		</header>
 		{{#if msg}}
@@ -23,18 +23,20 @@
 		{{/if}}
 		<main>
     <table>
-    <tr><th>IMAGE</th><th>NAME</th><th>CAUSE</th><th>PLEDGE</th><th>FUND</th><th>DEADLINE</th><th>CONTACTED</th>
+    <tr><th>image</th><th>Name</th><th>Cause</th><th>Pledge</th><th>Fund</th><th>Deadline</th><th>Contacted</th>
     {{#each records}}
       <tr>
-        <td><img src="images"/{{this.image}}" /></td>
+        <td><img src="avatar/{{this.image}}" /></td>
         <td>{{this.firstname}} {{this.lastname}}</td>
-        <td>{{this.cause}} {{this.pledge}}</td>
-        <td>{{this.fund}} {{this.deadline}}</td>
-        <td><a href="{{this.url}}"></a></td>
+        <td>{{this.cause}}</td>
+        <td>{{this.pledge}}</td>
+        <td>{{this.fund}}</td>
+        <td>{{this.deadline}}</td>
         <td>{{this.lastcontact}}</td>
      </tr>
    {{/each}}
 </table>
 		</main>
+    <a class="add" href="/pledge/add">Add New Donor</a>
 	</body>
 </html>
