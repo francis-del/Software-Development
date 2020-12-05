@@ -1,4 +1,5 @@
 
+
 import Router from 'koa-router'
 import bodyParser from 'koa-body'
 
@@ -15,8 +16,12 @@ const dbName = 'website.db'
  * @route {GET} /
  */
 router.get('/', async ctx => {
-	try {
-		await ctx.render('index', ctx.hbs)
+ try {
+  if(ctx.hbs.authorised) {
+   return ctx.redirect('/pledge?msg=you are logged in...')
+  } else {
+   return ctx.redirect('/login?msg=you need to log in')
+  }
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)
 	}
@@ -46,11 +51,11 @@ router.post('/register', async ctx => {
 	} catch(err) {
 		ctx.hbs.msg = err.message
 		ctx.hbs.body = ctx.request.body
-		console.log(ctx.hbs)
+ console.log(ctx.hbs)
 		await ctx.render('register', ctx.hbs)
 	} finally {
 		account.close()
-  }
+ }
 })
 
 router.get('/login', async ctx => {
