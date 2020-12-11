@@ -1,19 +1,19 @@
 
-
 <!doctype html>
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Contacts</title>
+		<title>Pledge - Cause</title>
+  <title>Cause</title>
 		<meta name="description" content="form to add new books">
 		<meta name="author" content="Mark Tyers">
 		<link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
-		<script type="module" src="main.js"></script>
+		<script type="module" src="{{host}}/main.js"></script>
 	</head>
 	<body>
 		<header>
-		<h1>Pledge</h1>
+		<h1>Pledge Cause</h1>
 		<a href="/logout">Log out</a>
 		</header>
 		{{#if msg}}
@@ -22,21 +22,25 @@
 			</aside>
 		{{/if}}
 		<main>
-    <table>
-    <tr><th>image</th><th>Name</th><th>Cause</th><th>Pledge</th><th>Fund</th><th>Deadline</th><th>Contacted</th>
+      <table>
+        <tr><th>image</th><th>Name</th><th>Pledge</th><th>Cause</th><th>lastcontact</th><th>Actions</th>
     {{#each records}}
       <tr>
-        <td><img src="avatar/{{this.image}}" /></td>
-        <td>{{this.firstname}} {{this.lastname}}</td>
-        <td>{{this.cause}}</td>
+        <td><img src="images/{{this.avatar}}" /></td>
+        
+        <td>{{this.firstname}}    {{this.lastname}}</td>
         <td>{{this.pledge}}</td>
-        <td>{{this.fund}}</td>
-        <td>{{this.deadline}}</td>
-        <td>{{this.lastcontact}}</td>
+       <td>{{this.cause}}</td>
+       <td>{{this.lastcontact}}</td>
+       <td><a href="/pledge/details/{{this.id}}">details</a></td>
+        
      </tr>
    {{/each}}
 </table>
+		<p>Welcome to Pledge page. Please make a pledge.
+      <p><a href="/">Pledge Homepage</a></p>
+  
 		</main>
-    <a class="add" href="/pledge/add">Add New Donor</a>
+  <a class="add" href="/pledge/add">Add New Pledge</a>
 	</body>
 </html>
