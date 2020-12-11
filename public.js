@@ -1,11 +1,7 @@
 
-
-
 import Router from 'koa-router'
-import bodyParser from 'koa-body'
 
 const router = new Router()
-router.use(bodyParser({multipart: true}))
 
 import Accounts from '../modules/accounts.js'
 const dbName = 'website.db'
@@ -17,12 +13,12 @@ const dbName = 'website.db'
  * @route {GET} /
  */
 router.get('/', async ctx => {
- try {
-  if(ctx.hbs.authorised) {
-   return ctx.redirect('/pledge?msg=you are logged in...')
-  } else {
-   return ctx.redirect('/login?msg=you need to log in')
-  }
+	try {
+    if(ctx.hbs.authorised) {
+      return ctx.redirect('/pledge?msg=you are logged in...')
+    } else {
+      return ctx.redirect('/login?msg=you need to log in')
+    }
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)
 	}
@@ -50,13 +46,14 @@ router.post('/register', async ctx => {
 		await account.register(ctx.request.body.user, ctx.request.body.pass, ctx.request.body.email)
 		ctx.redirect(`/login?msg=new user "${ctx.request.body.user}" added, you need to log in`)
 	} catch(err) {
+		console.log(err)
 		ctx.hbs.msg = err.message
 		ctx.hbs.body = ctx.request.body
- console.log(ctx.hbs)
+		console.log(ctx.hbs)
 		await ctx.render('register', ctx.hbs)
 	} finally {
-		account.close()
- }
+		await account.close()
+	}
 })
 
 router.get('/login', async ctx => {
@@ -71,22 +68,23 @@ router.post('/login', async ctx => {
 		const body = ctx.request.body
 		const id = await account.login(body.user, body.pass)
 		ctx.session.authorised = true
-    ctx.session.user = body.user
-    ctx.session.userid = id
+  ctx.session.user = body.user
+  ctx.session.userid = id
 		const referrer = body.referrer || '/pledge'
 		return ctx.redirect(`${referrer}?msg=you are now logged in...`)
 	} catch(err) {
+		console.log(err)
 		ctx.hbs.msg = err.message
 		await ctx.render('login', ctx.hbs)
 	} finally {
-		account.close()
+		await account.close()
 	}
 })
 
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null
-  delete ctx.session.user
-  delete ctx.session.userid
+ delete ctx.session.user
+ delete ctx.session.userid
 	ctx.redirect('/?msg=you are now logged out')
 })
 
